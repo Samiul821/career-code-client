@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { signInUser } = use(AuthContext);
+  const { signInUser, forgetPassword } = use(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -33,6 +33,47 @@ const Login = () => {
           confirmButtonColor: "#ef4444",
         });
       });
+  };
+
+  const handleForgetPassword = (e) => {
+    e.preventDefault();
+
+    Swal.fire({
+      title: "Reset Password",
+      input: "email",
+      inputLabel: "Please enter your email address",
+      inputPlaceholder: "your-email@example.com",
+      showCancelButton: true,
+      confirmButtonText: "Send Reset Link",
+      cancelButtonText: "Cancel",
+      inputValidator: (value) => {
+        if (!value) {
+          return "Email is required!";
+        }
+        return null;
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const email = result.value;
+        forgetPassword(email)
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Reset link sent!",
+              text: "Please check your email to reset your password.",
+              timer: 3000,
+              showConfirmButton: false,
+            });
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops!",
+              text: error.message || "Something went wrong.",
+            });
+          });
+      }
+    });
   };
 
   return (
@@ -75,6 +116,16 @@ const Login = () => {
             <label className="absolute left-4 top-2 text-sm text-white/60 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-white/40 peer-focus:top-2 peer-focus:text-sm peer-focus:text-white/60 transition-all">
               Password
             </label>
+          </div>
+          {/* Forgot Password link outside the input field */}
+          <div className="text-right mt-1">
+            <button
+              type="button"
+              onClick={handleForgetPassword}
+              className="text-sm text-blue-400 hover:underline"
+            >
+              Forgot Password?
+            </button>
           </div>
 
           {/* Button */}
