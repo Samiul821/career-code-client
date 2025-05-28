@@ -4,6 +4,7 @@ import Lottie from "lottie-react";
 import loginLottie from "../../assets/lotties/login.json";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import SocialLogin from "../Shared/SocialLogin";
 
 const Login = () => {
   const { signInUser, forgetPassword } = use(AuthContext);
@@ -136,6 +137,8 @@ const Login = () => {
             Login
           </button>
         </form>
+
+        <SocialLogin></SocialLogin>
 
         <p className="text-white/60 text-sm text-center mt-6">
           Don't have an account?{" "}

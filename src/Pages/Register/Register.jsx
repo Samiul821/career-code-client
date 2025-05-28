@@ -4,6 +4,7 @@ import registerLottie from "../../assets/lotties/register.json";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import SocialLogin from "../Shared/SocialLogin";
 
 const Register = () => {
   const { createUser } = use(AuthContext);
@@ -106,6 +107,7 @@ const Register = () => {
               </Link>
             </p>
           </form>
+          <SocialLogin></SocialLogin>
         </div>
 
         {/* Lottie Animation */}
