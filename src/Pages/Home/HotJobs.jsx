@@ -15,7 +15,7 @@ const HotJobs = ({ jobsPromise }) => {
         </p>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {jobs.map((job) => (
           <JobsCard key={job._id} job={job} />
         ))}
