@@ -1,9 +1,10 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const JobDetails = () => {
   const {
+    _id,
     title,
     location,
     jobType,
@@ -96,9 +97,11 @@ const JobDetails = () => {
       </div>
 
       {/* Apply Now Button */}
-      <button className="mt-8 w-full py-3 bg-green-500 hover:bg-green-600 rounded-xl font-semibold text-white shadow-lg transition-all">
-        🚀 Apply Now
-      </button>
+      <Link to={`/jobApply/${_id}`}>
+        <button className="mt-8 w-full py-3 bg-green-500 hover:bg-green-600 rounded-xl font-semibold text-white shadow-lg transition-all">
+          🚀 Apply Now
+        </button>
+      </Link>
     </motion.div>
   );
 };

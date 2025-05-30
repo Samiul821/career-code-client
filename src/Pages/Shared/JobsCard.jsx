@@ -126,7 +126,7 @@ const JobsCard = ({ job }) => {
           transition={{ duration: 0.3 }}
           className="mt-auto w-full bg-blue-600 text-white font-bold py-3 rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 cursor-pointer"
         >
-          Apply Now
+          Show Details
         </motion.button>
       </Link>
     </motion.div>

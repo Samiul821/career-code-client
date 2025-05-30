@@ -3,11 +3,16 @@ import { AuthContext } from "../../context/AuthContext/AuthContext";
 import Lottie from "lottie-react";
 import loginLottie from "../../assets/lotties/login.json";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin";
 
 const Login = () => {
   const { signInUser, forgetPassword } = use(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state || "/";
+
+  console.log("location in sign in page", location);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -24,6 +29,7 @@ const Login = () => {
           icon: "success",
           confirmButtonColor: "#3b82f6",
         });
+        navigate(from);
       })
       .catch((error) => {
         console.error(error);
@@ -138,7 +144,7 @@ const Login = () => {
           </button>
         </form>
 
-        <SocialLogin></SocialLogin>
+        <SocialLogin from={from}></SocialLogin>
 
         <p className="text-white/60 text-sm text-center mt-6">
           Don't have an account?{" "}

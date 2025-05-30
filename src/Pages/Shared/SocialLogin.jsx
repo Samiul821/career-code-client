@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const SocialLogin = () => {
+const SocialLogin = ({from}) => {
   const { signInWithGoogle } = use(AuthContext);
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const SocialLogin = () => {
           icon: "success",
           confirmButtonText: "Awesome!",
         }).then(() => {
-          navigate("/");
+          navigate(from || '/');
         });
       })
       .catch((error) => {
