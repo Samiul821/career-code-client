@@ -11,6 +11,8 @@ import {
   FaFileAlt,
   FaRegStickyNote,
 } from "react-icons/fa";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const JobApply = () => {
   const { id: jobId } = useParams();
@@ -19,9 +21,9 @@ const JobApply = () => {
   const handleApply = (e) => {
     e.preventDefault();
     const form = e.target;
-    const data = {
+    const application = {
       name: form.name.value,
-      email: form.email.value,
+      applicant: form.email.value,
       phone: form.phone.value,
       linkedin: form.linkedin.value,
       github: form.github.value,
@@ -30,8 +32,27 @@ const JobApply = () => {
       jobId,
       userId: user?.uid,
     };
-    console.log(data);
-    
+
+    axios
+      .post("http://localhost:3000/applications", application)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: "Your application has been submitted successfully!",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Application submit failed:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Failed to submit application. Please try again!",
+        });
+      });
   };
 
   return (
@@ -48,7 +69,7 @@ const JobApply = () => {
         transition={{ duration: 0.4 }}
       >
         <h2 className="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500">
-          Apply for this Job: <Link to={`/jobsDetails/${jobId}`}>Details</Link>
+          Apply for this Job: <Link to={`/jobs/${jobId}`}>Details</Link>
         </h2>
 
         <form onSubmit={handleApply} className="grid grid-cols-1 gap-6">
@@ -104,6 +125,7 @@ const JobApply = () => {
             <input
               type="url"
               name="linkedin"
+              required
               placeholder="LinkedIn profile URL"
               className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
@@ -117,6 +139,7 @@ const JobApply = () => {
             <input
               type="url"
               name="github"
+              required
               placeholder="GitHub profile URL"
               className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
@@ -130,6 +153,7 @@ const JobApply = () => {
             <input
               type="url"
               name="resume"
+              required
               placeholder="Link to your resume"
               className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
