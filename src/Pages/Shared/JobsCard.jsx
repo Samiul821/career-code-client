@@ -116,7 +116,7 @@ const JobsCard = ({ job }) => {
       </div>
 
       {/* Apply Now Button */}
-      <Link to={`/jobs/${job._id}`}>
+      <Link to={`/jobsDetails/${job._id}`}>
         <motion.button
           whileHover={{
             scale: 1.07,
