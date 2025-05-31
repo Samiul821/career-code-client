@@ -65,6 +65,20 @@ const Navbar = () => {
           About
         </NavLink>
       </li>
+      {
+        user && <>
+          <NavLink
+          to="/myApplication"
+          className={({ isActive }) =>
+            isActive
+              ? "text-teal-400 font-semibold"
+              : "hover:text-teal-300 transition"
+          }
+        >
+          My Application
+        </NavLink>
+        </>
+      }
     </>
   );
 
