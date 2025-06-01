@@ -41,18 +41,37 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/jobs"
-          className={({ isActive }) =>
-            isActive
-              ? "text-teal-400 font-semibold"
-              : "hover:text-teal-300 transition"
-          }
-        >
-          Jobs
-        </NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink
+              to="/addJob"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-teal-400 font-semibold"
+                  : "hover:text-teal-300 transition"
+              }
+            >
+              Add Job
+            </NavLink>
+          </li>
+        </>
+      )}
+
+      {user && (
+        <>
+          <NavLink
+            to="/myApplication"
+            className={({ isActive }) =>
+              isActive
+                ? "text-teal-400 font-semibold"
+                : "hover:text-teal-300 transition"
+            }
+          >
+            My Application
+          </NavLink>
+        </>
+      )}
       <li>
         <NavLink
           to="/about"
@@ -65,20 +84,6 @@ const Navbar = () => {
           About
         </NavLink>
       </li>
-      {
-        user && <>
-          <NavLink
-          to="/myApplication"
-          className={({ isActive }) =>
-            isActive
-              ? "text-teal-400 font-semibold"
-              : "hover:text-teal-300 transition"
-          }
-        >
-          My Application
-        </NavLink>
-        </>
-      }
     </>
   );
 
