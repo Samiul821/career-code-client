@@ -14,6 +14,8 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const AddJob = () => {
   const { user } = useAuth();
@@ -26,7 +28,11 @@ const AddJob = () => {
 
     // process salary range data
     const { min, max, currency, ...newJob } = data;
-    newJob.salaryRange = { min, max, currency };
+    newJob.salaryRange = {
+      min: Number(min),
+      max: Number(max),
+      currency,
+    };
 
     // process requirements
     const requirementsString = newJob.requirements;
@@ -35,8 +41,37 @@ const AddJob = () => {
     newJob.requirements = requirementsClean;
 
     // process responsibilities
-    newJob.responsibilities = newJob.responsibilities.split(',').map(res => res.trim());
+    newJob.responsibilities = newJob.responsibilities
+      .split(",")
+      .map((res) => res.trim());
+
+    newJob.status = "active";
+
     console.log(newJob);
+
+    // save job to the database
+    axios
+      .post("http://localhost:3000/jobs", newJob)
+      .then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            icon: "success",
+            title: "Job Added Successfully!",
+            text: "This new Job has been saved and published.",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong while saving the job!",
+          confirmButtonColor: "#d33",
+        });
+      });
   };
 
   return (
@@ -200,14 +235,14 @@ const AddJob = () => {
             </select>
           </div>
 
-          {/* Application Dateline */}
+          {/* Application Deadline */}
           <div>
             <label className="flex items-center gap-2 mb-2 text-lg font-semibold text-gray-800">
-              <FaCalendarAlt className="text-purple-500" /> Application Dateline
+              <FaCalendarAlt className="text-purple-500" /> Application Deadline
             </label>
             <input
               type="date"
-              name="dateline"
+              name="applicationDeadline"
               required
               className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400"
             />

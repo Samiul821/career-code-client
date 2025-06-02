@@ -55,6 +55,18 @@ const Navbar = () => {
               Add Job
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/myPostedJobs"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-teal-400 font-semibold"
+                  : "hover:text-teal-300 transition"
+              }
+            >
+              My Posted Job
+            </NavLink>
+          </li>
         </>
       )}
 
