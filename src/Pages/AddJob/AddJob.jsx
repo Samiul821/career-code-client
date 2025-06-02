@@ -13,14 +13,30 @@ import {
   FaTasks,
   FaEnvelope,
 } from "react-icons/fa";
+import useAuth from "../../hooks/useAuth";
 
 const AddJob = () => {
+  const { user } = useAuth();
+
   const handleAddJob = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
+
+    // process salary range data
+    const { min, max, currency, ...newJob } = data;
+    newJob.salaryRange = { min, max, currency };
+
+    // process requirements
+    const requirementsString = newJob.requirements;
+    const requirementsDirty = requirementsString.split(",");
+    const requirementsClean = requirementsDirty.map((req) => req.trim());
+    newJob.requirements = requirementsClean;
+
+    // process responsibilities
+    newJob.responsibilities = newJob.responsibilities.split(',').map(res => res.trim());
+    console.log(newJob);
   };
 
   return (
@@ -205,7 +221,7 @@ const AddJob = () => {
               </label>
               <input
                 type="number"
-                name="minSalary"
+                name="min"
                 required
                 placeholder="Min Salary"
                 className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400"
@@ -218,7 +234,7 @@ const AddJob = () => {
               </label>
               <input
                 type="number"
-                name="maxSalary"
+                name="max"
                 required
                 placeholder="Max Salary"
                 className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400"
@@ -267,7 +283,7 @@ const AddJob = () => {
               name="requirements"
               required
               rows="3"
-              placeholder="List the requirements"
+              placeholder="Requirements (separate by comma)"
               className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"
             ></textarea>
           </div>
@@ -281,7 +297,7 @@ const AddJob = () => {
               name="responsibilities"
               required
               rows="3"
-              placeholder="List the responsibilities"
+              placeholder="Responsibilities (separate by comma)"
               className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"
             ></textarea>
           </div>
@@ -305,6 +321,7 @@ const AddJob = () => {
             <input
               type="email"
               name="hr_email"
+              defaultValue={user.email}
               required
               placeholder="hr@example.com"
               className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400"
