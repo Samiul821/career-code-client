@@ -1,7 +1,7 @@
 import React from "react";
 
 const JobApplicationRow = ({ application, index }) => {
-  const { company, title, company_logo } = application;
+  const { company, title, company_logo, applicant } = application;
   return (
     <tr>
       <th>
@@ -20,13 +20,7 @@ const JobApplicationRow = ({ application, index }) => {
           </div>
         </div>
       </td>
-      <td>
-        Zemlak, Daniel and Leannon
-        <br />
-        <span className="badge badge-ghost badge-sm">
-          Desktop Support Technician
-        </span>
-      </td>
+      <td>{applicant}</td>
       <td>Purple</td>
       <th>
         <button className="btn btn-ghost btn-xs">details</button>

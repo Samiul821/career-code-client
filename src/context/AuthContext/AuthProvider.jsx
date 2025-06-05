@@ -10,8 +10,9 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import auth from "../../Firebase/firebase.init";
+import axios from "axios";
 
- const googleProvider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -28,9 +29,9 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInWithGoogle = () => {
-    setLoading(true)
-    return signInWithPopup(auth, googleProvider)
-  }
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
 
   const forgetPassword = (email) => {
     setLoading(true);
@@ -46,6 +47,19 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+      if (currentUser?.email) {
+        const userData = { email: currentUser.email };
+        axios
+          .post("http://localhost:3000/jwt", userData, {
+            withCredentials: true
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     });
     return () => unsubscribe();
   }, []);

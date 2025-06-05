@@ -11,6 +11,7 @@ import ErrorPage from "../Pages/Shared/ErrorPage";
 import MyApplication from "../Pages/MyApplication.jsx/MyApplication";
 import AddJob from "../Pages/AddJob/AddJob";
 import MyPostedJobs from "../Pages/MyPostedJob/MyPostedJobs";
+import ViewApplications from "../Pages/ViewApplications/ViewApplications";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,16 @@ const router = createBrowserRouter([
             <MyPostedJobs></MyPostedJobs>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/applications/:job_id",
+        element: (
+          <PrivateRoute>
+            <ViewApplications></ViewApplications>
+          </PrivateRoute>
+        ),
+        loader: ({params}) => fetch(`http://localhost:3000/applications/job/${params.job_id}`),
+        hydrateFallbackElement: <Loading></Loading>
       },
       {
         path: "/myApplication",
