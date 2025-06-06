@@ -3,14 +3,18 @@ import Banner from "./Banner";
 import HotJobs from "./HotJobs";
 import Loading from "../Shared/Loading";
 
-const Home = () => {
-  const jobsPromise = fetch('http://localhost:3000/jobs').then(res => res.json())
+const jobsPromise = fetch("http://localhost:3000/jobs").then((res) =>
+  res.json()
+);
 
+console.log(jobsPromise);
+
+const Home = () => {
   return (
     <div>
-      <Banner></Banner>
-      <Suspense fallback=<Loading></Loading>>
-        <HotJobs jobsPromise={jobsPromise}></HotJobs>
+      <Banner />
+      <Suspense fallback={<Loading />}>
+        <HotJobs jobsPromise={jobsPromise} />
       </Suspense>
     </div>
   );

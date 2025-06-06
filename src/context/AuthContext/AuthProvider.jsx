@@ -62,6 +62,7 @@ const AuthProvider = ({ children }) => {
             console.log(error);
           });
       }
+      console.log("user in the auth state change", currentUser);
     });
     return () => unsubscribe();
   }, []);

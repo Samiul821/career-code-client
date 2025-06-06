@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { motion } from "framer-motion";
 import useAuth from "../../hooks/useAuth";
 import MyJobList from "./MyJobList";
-import { jobsCreatedPromise } from "../../api/jobsApi";
+import { jobsCreatedByPromise } from "../../api/jobsApi";
 import Loading from "../Shared/Loading";
 
 const MyPostedJobs = () => {
@@ -31,7 +31,7 @@ const MyPostedJobs = () => {
         transition={{ duration: 0.7, delay: 0.2 }}
       >
         <Suspense fallback={<Loading />}>
-          <MyJobList jobsCreatedPromise={jobsCreatedPromise(user?.email)} />
+          <MyJobList jobsCreatedPromise={jobsCreatedByPromise(user?.email, user.accessToken)} />
         </Suspense>
       </motion.div>
     </section>

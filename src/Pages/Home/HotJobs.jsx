@@ -3,6 +3,7 @@ import JobsCard from "../Shared/JobsCard";
 
 const HotJobs = ({ jobsPromise }) => {
   const jobs = use(jobsPromise);
+  console.log(jobs);
 
   return (
     <section className="py-12 px-[3%] md:px-[5%] lg:px-[10%] bg-gradient-to-br from-gray-50 to-white">
