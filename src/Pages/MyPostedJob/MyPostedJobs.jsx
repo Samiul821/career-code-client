@@ -2,11 +2,13 @@ import React, { Suspense } from "react";
 import { motion } from "framer-motion";
 import useAuth from "../../hooks/useAuth";
 import MyJobList from "./MyJobList";
-import { jobsCreatedByPromise } from "../../api/jobsApi";
 import Loading from "../Shared/Loading";
+import useJobApi from "../../api/useJobApi";
 
 const MyPostedJobs = () => {
   const { user } = useAuth();
+
+  const { jobsCreatedByPromise } = useJobApi();
 
   return (
     <section className="min-h-screen bg-gradient-to-br from-white via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12 px-4 sm:px-8">
@@ -31,7 +33,12 @@ const MyPostedJobs = () => {
         transition={{ duration: 0.7, delay: 0.2 }}
       >
         <Suspense fallback={<Loading />}>
-          <MyJobList jobsCreatedPromise={jobsCreatedByPromise(user?.email, user.accessToken)} />
+          <MyJobList
+            jobsCreatedPromise={jobsCreatedByPromise(
+              user?.email,
+              user.accessToken
+            )}
+          />
         </Suspense>
       </motion.div>
     </section>
