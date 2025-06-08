@@ -5,12 +5,9 @@ import Loading from "../Shared/Loading";
 import useAuth from "../../hooks/useAuth";
 import useApplicationApi from "../../api/useApplicationApi";
 
-
 const MyApplication = () => {
   const { user } = useAuth();
-  const {myApplicationPromise} = useApplicationApi();
-
-  console.log("token in the context", user.accessToken);
+  const { myApplicationPromise } = useApplicationApi();
 
   return (
     <div>
