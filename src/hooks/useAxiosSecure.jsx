@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 import { toast } from "react-toastify";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://career-code-server-dun.vercel.app",
 });
 
 const useAxiosSecure = () => {

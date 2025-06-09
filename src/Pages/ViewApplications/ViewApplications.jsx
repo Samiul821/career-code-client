@@ -13,7 +13,7 @@ const ViewApplications = () => {
     const newStatus = e.target.value;
 
     axios
-      .patch(`http://localhost:3000/applications/${app_id}`, {
+      .patch(`https://career-code-server-dun.vercel.app/applications/${app_id}`, {
         status: newStatus,
       })
       .then((res) => {

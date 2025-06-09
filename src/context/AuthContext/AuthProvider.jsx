@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         axios
           .post(
-            "http://localhost:3000/jwt",
+            "https://career-code-server-dun.vercel.app/jwt",
             { email: currentUser.email },
             { withCredentials: true }
           )
